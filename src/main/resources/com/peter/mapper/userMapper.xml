@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.peter.mapper.userMapper">
+    <resultMap id="User" type="com.peter.pojo.User">
+        <result property="username" jdbcType="VARCHAR" column="username"/>
+        <result property="password" jdbcType="VARCHAR" column="password"/>
+    </resultMap>
+
+    <select id="queryUserByName" resultType="com.peter.pojo.User" parameterType="string" resultMap="User">
+        select * from `mp-database`.logintable
+        <trim suffixOverrides="and"  prefixOverrides="and">
+            <where>
+                <if test="username!=null">
+                    and username = #{username}
+                </if>
+            </where>
+        </trim>
+    </select>
+
+</mapper>
